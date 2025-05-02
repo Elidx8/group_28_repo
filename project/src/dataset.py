@@ -1,5 +1,7 @@
 import os
+import torch
 import pandas as pd
+import numpy as np
 from PIL import Image
 from torch.utils.data import Dataset
 
@@ -18,7 +20,8 @@ class ChocolateDataset(Dataset):
         # Load image
         image = Image.open(img_file).convert("RGB")
         # Get label (all columns except the first)
-        label = self.labels.iloc[idx, 1:].values.astype('float32')
+        label = self.labels.iloc[idx, 1:].values.astype('int')
+        # print(f"Label for image {img_id}: {label}") # This part
         if self.transform:
             image = self.transform(image)
         return image, label
