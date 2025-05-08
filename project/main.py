@@ -169,8 +169,8 @@ def main():
             images = images.to(device)
             outputs = model(images)
             preds = torch.round(outputs).int().cpu().numpy()  # Round predictions to nearest integer
-            print(img_ids)
-            print(preds.shape)
+            # print(img_ids)
+            # print(preds.shape)
             for img_id, pred in zip(img_ids, preds):
                 # print(f"Image ID: {img_id}, Prediction: {pred}")  # Debugging line
                 kaggle_predictions.append([img_id] + pred.tolist())
