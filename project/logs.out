@@ -1,64 +1,213 @@
-  0%|          | 0/10 [00:00<?, ?it/s] 10%|█         | 1/10 [00:08<01:20,  8.97s/it] 20%|██        | 2/10 [00:17<01:09,  8.64s/it] 30%|███       | 3/10 [00:25<00:59,  8.52s/it] 40%|████      | 4/10 [00:34<00:50,  8.47s/it] 50%|█████     | 5/10 [00:42<00:42,  8.44s/it] 60%|██████    | 6/10 [00:50<00:33,  8.44s/it] 70%|███████   | 7/10 [00:59<00:25,  8.44s/it] 80%|████████  | 8/10 [01:07<00:16,  8.45s/it] 90%|█████████ | 9/10 [01:16<00:08,  8.44s/it]100%|██████████| 10/10 [01:24<00:00,  8.43s/it]100%|██████████| 10/10 [01:24<00:00,  8.47s/it]
-
-Epoch 1 - First batch predictions vs ground truth:
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 0 0 0 0 3 3 3 0 0 0]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 0 0 0 0 0 0 2 2 2 2]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [1 0 0 0 0 0 0 1 0 0 1 1 1]
-Epoch 1, Loss: 18.9960, Accuracy: 0.5994
-
-Epoch 2 - First batch predictions vs ground truth:
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [3 3 3 0 0 0 0 0 0 0 0 0 0]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 0 1 2 1 0 0 0 0 0 0]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [1 0 2 1 0 1 0 0 0 0 0 2 0]
-Epoch 2, Loss: 16.4297, Accuracy: 0.6955
-
-Epoch 3 - First batch predictions vs ground truth:
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 2 2 0 0 2 2 0 0 0 0 0 0]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 1 1 1 1 0 0 0 0 2 0]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 0 0 0 0 0 2 2 2 2 2]
-Epoch 3, Loss: 16.4246, Accuracy: 0.6955
-
-Epoch 4 - First batch predictions vs ground truth:
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [2 2 2 2 0 0 0 0 0 0 0 0 0]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 0 0 0 0 1 1 0 0 0 2]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 2 0 0 0 2 0 0 0 2 0 2]
-Epoch 4, Loss: 16.4123, Accuracy: 0.6955
-
-Epoch 5 - First batch predictions vs ground truth:
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 3 3 0 4 0 0 0 0 0 0 0 0]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 0 0 0 0 0 2 3 0 0 0]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [2 0 0 1 0 0 0 0 0 0 0 1 1]
-Epoch 5, Loss: 16.3516, Accuracy: 0.6955
-
-Epoch 6 - First batch predictions vs ground truth:
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 2 2 0 0 0 0 0 2 0 0 2 0]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [3 3 3 0 0 0 0 0 0 0 0 0 0]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 2 2 0 0 2 2 0 0 0 0 0 0]
-Epoch 6, Loss: 16.3363, Accuracy: 0.6774
-
-Epoch 7 - First batch predictions vs ground truth:
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 2 2 0 0 0 0 0 2 0 0 2 0]
-Pred: [0 0 0 0 0 0 0 1 0 0 0 0 0] | True: [3 0 0 0 0 0 0 5 0 0 0 0 0]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 0 0 0 0 2 0 0 2 0 0]
-Epoch 7, Loss: 16.1055, Accuracy: 0.6934
-
-Epoch 8 - First batch predictions vs ground truth:
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 1 2 0 0 0 0 1 0 0 0 0 0]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [1 1 1 1 1 1 1 1 1 1 1 1 1]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 1 0 1 0 0 1 1 0 0 1]
-Epoch 8, Loss: 15.6431, Accuracy: 0.6667
-
-Epoch 9 - First batch predictions vs ground truth:
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [2 2 3 0 0 0 0 0 0 0 0 0 0]
-Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [1 1 1 1 1 1 1 1 1 1 1 1 1]
-Pred: [ 0 -1 -1  0 -1  0  1  1  0  1  1  0  0] | True: [0 0 0 0 0 3 3 0 0 0 2 2 2]
-Epoch 9, Loss: 14.4310, Accuracy: 0.5897
-
-Epoch 10 - First batch predictions vs ground truth:
-Pred: [0 0 0 0 0 0 0 0 0 1 0 0 0] | True: [2 0 0 0 2 0 0 0 0 0 0 0 0]
-Pred: [ 0  0  0  0  1  0 -1  1  0  0  0 -1  0] | True: [0 0 0 2 2 1 0 0 0 0 0 0 0]
-Pred: [ 0  0  0  0 -1  1  1  1  0  2  0  0  0] | True: [0 0 0 0 0 1 1 1 0 2 0 0 0]
-Epoch 10, Loss: 12.7333, Accuracy: 0.4530
+Loading training data...
+Training data loaded.
+Training Progress:   0%|          | 0/1 [00:00<?, ?epoch/s]Training Progress: 100%|██████████| 1/1 [00:09<00:00,  9.24s/epoch]Training Progress: 100%|██████████| 1/1 [00:09<00:00,  9.25s/epoch]
+Epoch 1, Loss: 0.8955, F1 Score: 0.0939
 Saved loss_plot.png
-Saved accuracy_plot.png
-Saved class_distribution.png
+Saved f1_score_plot.png
+Saving validation F1 Score...
+Saved validation_f1_score.txt
+('L1010028', 'L1000978', 'L1000944', 'L1000777', 'L1000818', 'L1000824', 'L1000830', 'L1000825', 'L1000819', 'L1000986', 'L1000762', 'L1000776', 'L1000945', 'L1000789', 'L1010001', 'L1010003')
+(16, 13)
+Image ID: L1010028, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000978, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000944, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000777, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000818, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000824, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000830, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000825, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000819, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000986, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000762, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000776, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000945, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000789, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1010001, Prediction: [0 0 0 0 0 0 1 0 0 0 0 0 0]
+Image ID: L1010003, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+('L1000947', 'L1000760', 'L1000774', 'L1000984', 'L1000990', 'L1000833', 'L1000832', 'L1000991', 'L1000775', 'L1000761', 'L1010002', 'L1010016', 'L1010006', 'L1000942', 'L1000956', 'L1000759')
+(16, 13)
+Image ID: L1000947, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000760, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000774, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000984, Prediction: [0 0 0 0 0 0 1 1 0 0 0 0 0]
+Image ID: L1000990, Prediction: [0 1 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000833, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000832, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000991, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000775, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000761, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1010002, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1010016, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1010006, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000942, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000956, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000759, Prediction: [0 1 0 0 1 0 1 1 0 0 0 0 0]
+('L1000995', 'L1000822', 'L1000823', 'L1000837', 'L1000770', 'L1000764', 'L1000994', 'L1000758', 'L1000980', 'L1000943', 'L1010007', 'L1010039', 'L1010005', 'L1010011', 'L1000955', 'L1000969')
+(16, 13)
+Image ID: L1000995, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000822, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000823, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000837, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000770, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000764, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000994, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000758, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000980, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000943, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1010007, Prediction: [0 1 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1010039, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1010005, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1010011, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000955, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000969, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+('L1000996', 'L1000982', 'L1000766', 'L1000835', 'L1000809', 'L1000834', 'L1000767', 'L1000773', 'L1000983', 'L1000997', 'L1000968', 'L1000940', 'L1000798', 'L1010010', 'L1010038', 'L1000933')
+(16, 13)
+Image ID: L1000996, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000982, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000766, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000835, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000809, Prediction: [0 0 0 0 0 0 1 0 0 0 0 0 0]
+Image ID: L1000834, Prediction: [0 1 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000767, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000773, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000983, Prediction: [0 0 0 0 0 0 1 1 0 0 0 0 0]
+Image ID: L1000997, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000968, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000940, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000798, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1010010, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1010038, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000933, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+('L1000927', 'L1000847', 'L1000853', 'L1000884', 'L1000891', 'L1000852', 'L1000846', 'L1000918', 'L1000924', 'L1000878', 'L1000893', 'L1000887', 'L1000886', 'L1000892', 'L1000845', 'L1000879')
+(16, 13)
+Image ID: L1000927, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000847, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000853, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000884, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000891, Prediction: [0 0 0 0 0 0 1 1 0 0 0 0 0]
+Image ID: L1000852, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000846, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000918, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000924, Prediction: [0 0 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000878, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000893, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000887, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000886, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000892, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000845, Prediction: [0 0 0 0 0 0 0 1 0 0 0 0 0]
+Image ID: L1000879, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+('L1000931', 'L1000925', 'L1000919', 'L1000921', 'L1000935', 'L1000841', 'L1000869', 'L1000883', 'L1000897', 'L1000840', 'L1000908', 'L1000934', 'L1000936', 'L1000842', 'L1000856', 'L1000881')
+(16, 13)
+Image ID: L1000931, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000925, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000919, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000921, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000935, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000841, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000869, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000883, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000897, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000840, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000908, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000934, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000936, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000842, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000856, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000881, Prediction: [0 0 0 0 0 0 0 1 0 0 0 0 0]
+('L1000895', 'L1000857', 'L1000937', 'L1010042', 'L1000912', 'L1000906', 'L1000898', 'L1000873', 'L1000867', 'L1000907', 'L1000913', 'L1010043', 'L1000905', 'L1000911', 'L1000871', 'L1000864')
+(16, 13)
+Image ID: L1000895, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000857, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000937, Prediction: [0 0 0 0 0 0 1 0 0 0 0 0 0]
+Image ID: L1010042, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000912, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000906, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000898, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000873, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000867, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000907, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000913, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1010043, Prediction: [0 0 0 0 0 0 1 1 0 0 0 0 0]
+Image ID: L1000905, Prediction: [0 1 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000911, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000871, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000864, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+('L1000858', 'L1000904', 'L1000938', 'L1010040', 'L1010044', 'L1000874', 'L1000848', 'L1000861', 'L1000929', 'L1000915', 'L1000901', 'L1010047', 'L1000917', 'L1000863', 'L1000877', 'L1000862')
+(16, 13)
+Image ID: L1000858, Prediction: [0 1 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000904, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000938, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1010040, Prediction: [0 0 0 0 0 0 1 1 0 0 0 0 0]
+Image ID: L1010044, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000874, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000848, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000861, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000929, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000915, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000901, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1010047, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000917, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000863, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000877, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000862, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+('L1000902', 'L1010046', 'L1010021', 'L1000795', 'L1000781', 'L1000959', 'L1000839', 'L1000811', 'L1000757', 'L1000970', 'L1000958', 'L1000794', 'L1010034', 'L1010020', 'L1010036', 'L1000782')
+(16, 13)
+Image ID: L1000902, Prediction: [0 0 0 0 0 0 1 0 0 0 0 0 0]
+Image ID: L1010046, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1010021, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000795, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000781, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000959, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000839, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000811, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000757, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000970, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000958, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000794, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1010034, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1010020, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1010036, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000782, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+('L1000796', 'L1000966', 'L1000999', 'L1000769', 'L1000806', 'L1000807', 'L1000813', 'L1000998', 'L1000973', 'L1000967', 'L1000783', 'L1010023', 'L1010037', 'L1010033', 'L1010027', 'L1000778')
+(16, 13)
+Image ID: L1000796, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000966, Prediction: [0 0 0 0 0 0 0 1 0 0 0 0 0]
+Image ID: L1000999, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000769, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000806, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000807, Prediction: [0 0 0 0 0 0 1 0 0 0 0 0 0]
+Image ID: L1000813, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000998, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000973, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000967, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000783, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1010023, Prediction: [0 1 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1010037, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1010033, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1010027, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000778, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+('L1000988', 'L1000816', 'L1000786', 'L1000976', 'L1000962', 'L1010018', 'L1010024', 'L1010030', 'L1000960', 'L1000790', 'L1000948', 'L1000784', 'L1000800', 'L1000814', 'L1000829', 'L1000801')
+(16, 13)
+Image ID: L1000988, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000816, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1000786, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000976, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000962, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1010018, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1010024, Prediction: [0 0 0 0 1 0 1 1 0 0 0 0 0]
+Image ID: L1010030, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000960, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000790, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000948, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000784, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000800, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000814, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+Image ID: L1000829, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 1]
+Image ID: L1000801, Prediction: [0 0 0 0 0 0 0 0 0 0 0 0 0]
+('L1000949', 'L1000961', 'L1000975', 'L1010025')
+(4, 13)
+Image ID: L1000949, Prediction: [0 1 0 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000961, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1000975, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Image ID: L1010025, Prediction: [0 1 1 0 1 0 1 1 0 0 0 1 0]
+Saved kaggle_predictions.csv

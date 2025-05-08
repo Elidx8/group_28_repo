@@ -1,0 +1,1 @@
+Validation Set F1 Score: 0.1780
