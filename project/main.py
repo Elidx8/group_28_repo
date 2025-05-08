@@ -42,9 +42,9 @@ def main():
     train_img_dir = './data/train'
 
     # Print when data has been loaded
-    print("Loading training data...")
+    print("Loading training data...", flush=True)
     train_dataset = ChocolateDataset(train_csv, train_img_dir, transform = transform)
-    print("Training data loaded.")
+    print("Training data loaded.", flush=True)
 
     # Re-incorporate 80/20 train-test split from the train set
     train_size = int(0.8 * len(train_dataset))
@@ -67,7 +67,7 @@ def main():
 
     # Print the number of parameters in the network
     num_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    print(f"Number of trainable parameters in the network: {num_params}")
+    print(f"Number of trainable parameters in the network: {num_params}", flush=True)
 
     # Add argument parsing for number of epochs
     parser = argparse.ArgumentParser(description="Train the Chocolate Classification Model")
@@ -80,7 +80,8 @@ def main():
     loss_history = []
     f1_history = [] # Add F1 Score tracking during training
 
-    for epoch in tqdm(range(num_epochs), desc="Training Progress", unit="epoch"):
+    # Add `leave=False` to TQDM to ensure only one progress bar is displayed
+    for epoch in tqdm(range(num_epochs), desc="Training Progress", unit="epoch", leave=False):
         model.train()
         running_loss = 0.0
         running_f1 = 0.0
@@ -113,7 +114,7 @@ def main():
         avg_f1 = running_f1 / len(train_loader)
         loss_history.append(avg_loss)
         f1_history.append(avg_f1)
-        print(f"Epoch {epoch+1}, Loss: {avg_loss:.4f}, F1 Score: {avg_f1:.4f}")
+        print(f"Epoch {epoch+1}, Loss: {avg_loss:.4f}, F1 Score: {avg_f1:.4f}", flush=True)
 
     plt.figure()
     plt.plot(loss_history, label='Loss')
@@ -122,7 +123,7 @@ def main():
     plt.title('Training Loss')
     plt.legend()
     plt.savefig('loss_plot.png')
-    print("Saved loss_plot.png")
+    print("Saved loss_plot.png", flush=True)
 
     # Plot F1 Score
     plt.figure()
@@ -132,7 +133,7 @@ def main():
     plt.title('Training F1 Score')
     plt.legend()
     plt.savefig('f1_score_plot.png')
-    print("Saved f1_score_plot.png")
+    print("Saved f1_score_plot.png", flush=True)
     
         # Calculate F1 Score for the validation set
     validation_predictions = []
@@ -154,10 +155,10 @@ def main():
     validation_f1_score = calculate_f1_score(y_true, y_pred)
 
     # Save validation F1 Score to a text file
-    print("Saving validation F1 Score...")
+    print("Saving validation F1 Score...", flush=True)
     with open("validation_f1_score.txt", "w") as f:
         f.write(f"Validation Set F1 Score: {validation_f1_score:.4f}\n")
-    print("Saved validation_f1_score.txt")
+    print("Saved validation_f1_score.txt", flush=True)
 
     # Simplify the test set prediction logic
     model.eval()
@@ -168,9 +169,11 @@ def main():
             images = images.to(device)
             outputs = model(images)
             preds = torch.round(outputs).int().cpu().numpy()  # Round predictions to nearest integer
-            print(img_ids)
-            print(preds.shape)
-            for img_id, pred in zip(img_ids, preds):
+            # Ensure IDs in the predictions file match the format in sample_submission.csv
+            image_ids = [img_id[1:] for img_id in img_ids]  # Remove the 'L' prefix from image IDs
+            # print(img_ids)
+            # print(preds.shape)
+            for img_id, pred in zip(image_ids, preds):
                 # print(f"Image ID: {img_id}, Prediction: {pred}")  # Debugging line
                 kaggle_predictions.append([img_id] + pred.tolist())
 
@@ -179,8 +182,13 @@ def main():
     kaggle_predictions_df = pd.DataFrame(kaggle_predictions, columns=columns)
 
     # Save Kaggle test set predictions to CSV
-    kaggle_predictions_df.to_csv("kaggle_predictions.csv", index=False)
-    print("Saved kaggle_predictions.csv")
+    kaggle_predictions_df.to_csv("sample_submission.csv", index=False)
+    print("Saved kaggle_predictions.csv", flush=True)
+
+    # Save the final trained model to the 'models' directory after all epochs
+    final_model_save_path = os.path.join('models', 'final_model.pth')
+    torch.save(model.state_dict(), final_model_save_path)
+    print(f"Saved final model to {final_model_save_path}", flush=True)
 
 if __name__ == "__main__":
     main()
