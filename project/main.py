@@ -169,9 +169,11 @@ def main():
             images = images.to(device)
             outputs = model(images)
             preds = torch.round(outputs).int().cpu().numpy()  # Round predictions to nearest integer
+            # Ensure IDs in the predictions file match the format in sample_submission.csv
+            image_ids = [img_id[1:] for img_id in img_ids]  # Remove the 'L' prefix from image IDs
             # print(img_ids)
             # print(preds.shape)
-            for img_id, pred in zip(img_ids, preds):
+            for img_id, pred in zip(image_ids, preds):
                 # print(f"Image ID: {img_id}, Prediction: {pred}")  # Debugging line
                 kaggle_predictions.append([img_id] + pred.tolist())
 
@@ -182,6 +184,11 @@ def main():
     # Save Kaggle test set predictions to CSV
     kaggle_predictions_df.to_csv("sample_submission.csv", index=False)
     print("Saved kaggle_predictions.csv", flush=True)
+
+    # Save the final trained model to the 'models' directory after all epochs
+    final_model_save_path = os.path.join('models', 'final_model.pth')
+    torch.save(model.state_dict(), final_model_save_path)
+    print(f"Saved final model to {final_model_save_path}", flush=True)
 
 if __name__ == "__main__":
     main()
