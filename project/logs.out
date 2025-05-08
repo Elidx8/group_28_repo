@@ -1,0 +1,64 @@
+  0%|          | 0/10 [00:00<?, ?it/s] 10%|█         | 1/10 [00:08<01:20,  8.97s/it] 20%|██        | 2/10 [00:17<01:09,  8.64s/it] 30%|███       | 3/10 [00:25<00:59,  8.52s/it] 40%|████      | 4/10 [00:34<00:50,  8.47s/it] 50%|█████     | 5/10 [00:42<00:42,  8.44s/it] 60%|██████    | 6/10 [00:50<00:33,  8.44s/it] 70%|███████   | 7/10 [00:59<00:25,  8.44s/it] 80%|████████  | 8/10 [01:07<00:16,  8.45s/it] 90%|█████████ | 9/10 [01:16<00:08,  8.44s/it]100%|██████████| 10/10 [01:24<00:00,  8.43s/it]100%|██████████| 10/10 [01:24<00:00,  8.47s/it]
+
+Epoch 1 - First batch predictions vs ground truth:
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 0 0 0 0 3 3 3 0 0 0]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 0 0 0 0 0 0 2 2 2 2]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [1 0 0 0 0 0 0 1 0 0 1 1 1]
+Epoch 1, Loss: 18.9960, Accuracy: 0.5994
+
+Epoch 2 - First batch predictions vs ground truth:
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [3 3 3 0 0 0 0 0 0 0 0 0 0]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 0 1 2 1 0 0 0 0 0 0]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [1 0 2 1 0 1 0 0 0 0 0 2 0]
+Epoch 2, Loss: 16.4297, Accuracy: 0.6955
+
+Epoch 3 - First batch predictions vs ground truth:
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 2 2 0 0 2 2 0 0 0 0 0 0]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 1 1 1 1 0 0 0 0 2 0]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 0 0 0 0 0 2 2 2 2 2]
+Epoch 3, Loss: 16.4246, Accuracy: 0.6955
+
+Epoch 4 - First batch predictions vs ground truth:
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [2 2 2 2 0 0 0 0 0 0 0 0 0]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 0 0 0 0 1 1 0 0 0 2]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 2 0 0 0 2 0 0 0 2 0 2]
+Epoch 4, Loss: 16.4123, Accuracy: 0.6955
+
+Epoch 5 - First batch predictions vs ground truth:
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 3 3 0 4 0 0 0 0 0 0 0 0]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 0 0 0 0 0 2 3 0 0 0]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [2 0 0 1 0 0 0 0 0 0 0 1 1]
+Epoch 5, Loss: 16.3516, Accuracy: 0.6955
+
+Epoch 6 - First batch predictions vs ground truth:
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 2 2 0 0 0 0 0 2 0 0 2 0]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [3 3 3 0 0 0 0 0 0 0 0 0 0]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 2 2 0 0 2 2 0 0 0 0 0 0]
+Epoch 6, Loss: 16.3363, Accuracy: 0.6774
+
+Epoch 7 - First batch predictions vs ground truth:
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 2 2 0 0 0 0 0 2 0 0 2 0]
+Pred: [0 0 0 0 0 0 0 1 0 0 0 0 0] | True: [3 0 0 0 0 0 0 5 0 0 0 0 0]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 0 0 0 0 2 0 0 2 0 0]
+Epoch 7, Loss: 16.1055, Accuracy: 0.6934
+
+Epoch 8 - First batch predictions vs ground truth:
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 1 2 0 0 0 0 1 0 0 0 0 0]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [1 1 1 1 1 1 1 1 1 1 1 1 1]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [0 0 0 1 0 1 0 0 1 1 0 0 1]
+Epoch 8, Loss: 15.6431, Accuracy: 0.6667
+
+Epoch 9 - First batch predictions vs ground truth:
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [2 2 3 0 0 0 0 0 0 0 0 0 0]
+Pred: [0 0 0 0 0 0 0 0 0 0 0 0 0] | True: [1 1 1 1 1 1 1 1 1 1 1 1 1]
+Pred: [ 0 -1 -1  0 -1  0  1  1  0  1  1  0  0] | True: [0 0 0 0 0 3 3 0 0 0 2 2 2]
+Epoch 9, Loss: 14.4310, Accuracy: 0.5897
+
+Epoch 10 - First batch predictions vs ground truth:
+Pred: [0 0 0 0 0 0 0 0 0 1 0 0 0] | True: [2 0 0 0 2 0 0 0 0 0 0 0 0]
+Pred: [ 0  0  0  0  1  0 -1  1  0  0  0 -1  0] | True: [0 0 0 2 2 1 0 0 0 0 0 0 0]
+Pred: [ 0  0  0  0 -1  1  1  1  0  2  0  0  0] | True: [0 0 0 0 0 1 1 1 0 2 0 0 0]
+Epoch 10, Loss: 12.7333, Accuracy: 0.4530
+Saved loss_plot.png
+Saved accuracy_plot.png
+Saved class_distribution.png

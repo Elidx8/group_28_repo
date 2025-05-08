@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+import torch.nn.functional as F
 
 class SimpleCNN(nn.Module):
     def __init__(self, num_classes=13):
@@ -18,4 +19,4 @@ class SimpleCNN(nn.Module):
     def forward(self, x):
         x = self.features(x)
         x = self.classifier(x)
-        return x
+        return x  # Output raw continuous values for regression
