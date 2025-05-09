@@ -6,12 +6,15 @@ from PIL import Image
 from torch.utils.data import Dataset
 
 class ChocolateDataset(Dataset):
-    def __init__(self, csv_file, img_path, transform=None):
+    def __init__(self, csv_file, img_path, transform=None, subset_fraction=0.1):
         # Handle the case where csv_file is None
         if csv_file is None:
             self.labels = None
         else:
             self.labels = pd.read_csv(csv_file)
+            # Keep only the first subset_fraction of rows
+            subset_size = int(len(self.labels) * subset_fraction)
+            self.labels = self.labels.iloc[:subset_size]
 
         self.img_path = img_path
         self.transform = transform
@@ -20,7 +23,7 @@ class ChocolateDataset(Dataset):
         # Update __len__ to handle no labels
         if self.labels is None:
             return len(os.listdir(self.img_path))  # Number of images in the directory
-        return len(self.labels) # Returns the Number of images in the dataset class
+        return len(self.labels)  # Number of rows in the labels DataFrame
 
     def __getitem__(self, idx):
         # Update __getitem__ to handle no labels
@@ -36,13 +39,11 @@ class ChocolateDataset(Dataset):
         img_id = self.labels.iloc[idx, 0]
         # Build image file path (assuming .jpg)
         img_file = os.path.join(self.img_path, f"L{img_id}.jpg")
-        # print(f"Image id: {img_id}, File path: {img_file}") # Debugging line
         # Load image
         image = Image.open(img_file).convert("RGB")
         # Get label (all columns except the first)
         label = self.labels.iloc[idx, 1:].values.astype('int')
         
-        # print(f"Label for image {img_id}: {label}") # This part
         if self.transform:
             image = self.transform(image)
         return image, label

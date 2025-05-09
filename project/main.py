@@ -10,6 +10,7 @@ import seaborn as sns
 from sklearn.metrics import f1_score
 import pandas as pd
 import os
+import math
 import argparse
 
 # Function to calculate the image-wise average F1-score
@@ -30,7 +31,7 @@ def calculate_f1_score(y_true, y_pred):
 def main():
     # Add more transforms for data augmentation
     transform = transforms.Compose([
-        transforms.Resize((224, 224)),
+        # transforms.Resize((224, 224)),
         transforms.RandomHorizontalFlip(),
         transforms.RandomRotation(15),
         transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
@@ -50,6 +51,11 @@ def main():
     train_size = int(0.8 * len(train_dataset))
     test_size = len(train_dataset) - train_size
     train_dataset, validation_dataset = torch.utils.data.random_split(train_dataset, [train_size, test_size])
+    # Print the size of an individual image from the training dataset
+    print(f"Size of an individual image from the training dataset: {train_dataset[0][0].size()}", flush=True)
+    print(f"Size of an individual image from the validation dataset: {validation_dataset[0][0].size()}", flush=True)
+    print(f"Number of training samples: {len(train_dataset)}", flush=True)
+    print(f"Number of validation samples: {len(validation_dataset)}", flush=True)
 
     # Create DataLoaders for train and validation sets
     train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)
@@ -61,6 +67,7 @@ def main():
     test_loader = DataLoader(test_dataset, batch_size=16, shuffle=False)
 
     device = torch.device('mps' if torch.backends.mps.is_available() else 'cuda' if torch.cuda.is_available() else 'cpu')
+    print(f"Using device: {device}", flush=True)
     model = SimpleCNN(num_classes=13).to(device)
     criterion = torch.nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)  # Reduce the learning rate for better convergence
@@ -71,7 +78,7 @@ def main():
 
     # Add argument parsing for number of epochs
     parser = argparse.ArgumentParser(description="Train the Chocolate Classification Model")
-    parser.add_argument('--epochs', type=int, default=1, help='Number of epochs for training')
+    parser.add_argument('--epochs', type=int, default=50, help='Number of epochs for training')
     args = parser.parse_args()
 
     # Use the parsed number of epochs
@@ -81,40 +88,63 @@ def main():
     f1_history = [] # Add F1 Score tracking during training
 
     # Add `leave=False` to TQDM to ensure only one progress bar is displayed
-    for epoch in tqdm(range(num_epochs), desc="Training Progress", unit="epoch", leave=False):
+    for epoch in tqdm(range(num_epochs)):
         model.train()
-        running_loss = 0.0
         running_f1 = 0.0
-        for _, (images, labels) in enumerate(train_loader):
-            # print(images.shape, labels.shape)  # Debugging line
-            # print(images, labels)
+        running_loss = 0.0
+        for images, labels in train_loader:
             images, labels = images.to(device), labels.to(device)
 
             optimizer.zero_grad()
             outputs = model(images)
-            labels = labels.float()  # Ensure labels are float for MSELoss
-            loss = criterion(outputs, labels)
-
+            loss = criterion(outputs, labels.float()) # removed .float() after labels
             loss.backward()
             optimizer.step()
 
             running_loss += loss.item()
-
-            # Calculate F1 Score for the batch
-            preds = torch.round(outputs.detach().cpu()).numpy() # torch.clamp(torch.round(outputs.detach().cpu()), min=0).numpy()
-            # Print if any predictions are negative
-            if np.any(preds < 0):
-                print(f"Negative predictions found!")
             
+            # Calculate F1 Score for the batch
+            preds = torch.round(outputs.detach().cpu()).numpy()
             true = labels.cpu().numpy()
             running_f1 += calculate_f1_score(true, preds)
             
+            # Print if any predictions are negative
+            if np.any(preds < 0):
+                print(f"Negative predictions found!")
 
-        avg_loss = running_loss / len(train_loader)
-        avg_f1 = running_f1 / len(train_loader)
-        loss_history.append(avg_loss)
-        f1_history.append(avg_f1)
-        print(f"Epoch {epoch+1}, Loss: {avg_loss:.4f}, F1 Score: {avg_f1:.4f}", flush=True)
+        epoch_loss = running_loss / len(train_loader)
+        epoch_f1 = running_f1 / len(train_loader)
+        print(f"\n Epoch {epoch+1}, Training Loss: {epoch_loss:.4f}, Training F1 Score: {epoch_f1:.4f}", flush=True)
+
+        # Run validation every 5 epochs
+        # if (epoch + 1) % 5 == 0:
+        #     model.eval()
+        #     val_loss = 0.0
+        #     with torch.no_grad():
+        #         for images, labels in validation_loader:
+        #             images, labels = images.to(device), labels.to(device)
+        #             outputs = model(images)
+        #             loss = criterion(outputs, labels.float())
+        #             val_loss += loss.item()
+        #     print(f"Epoch {epoch+1}, Validation Loss: {val_loss / len(validation_loader):.4f}", flush=True)
+        
+        model.eval()
+        val_loss = 0.0
+        val_f1 = 0.0
+        with torch.no_grad():
+            for images, labels in validation_loader:
+                images, labels = images.to(device), labels.to(device)
+                outputs = model(images)
+                loss = criterion(outputs, labels.float())
+                val_loss += loss.item()
+
+                # Calculate F1 Score for the validation batch
+                preds = torch.round(outputs.cpu()).numpy()
+                true = labels.cpu().numpy()
+                val_f1 += calculate_f1_score(true, preds)
+        val_loss /= len(validation_loader)
+        val_f1 /= len(validation_loader)
+        print(f"Epoch {epoch+1}, Validation Loss: {val_loss:.4f}, Validation F1 Score: {val_f1:.4f}", flush=True)
 
     plt.figure()
     plt.plot(loss_history, label='Loss')
@@ -124,6 +154,16 @@ def main():
     plt.legend()
     plt.savefig('loss_plot.png')
     print("Saved loss_plot.png", flush=True)
+    
+    # Plot validation loss
+    plt.figure()
+    plt.plot(val_loss, label='Validation Loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Validation Loss')
+    plt.title('Validation Loss')
+    plt.legend()
+    plt.savefig('validation_loss_plot.png')
+    print("Saved validation_loss_plot.png", flush=True)
 
     # Plot F1 Score
     plt.figure()
