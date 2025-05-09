@@ -6,7 +6,7 @@ from PIL import Image
 from torch.utils.data import Dataset
 
 class ChocolateDataset(Dataset):
-    def __init__(self, csv_file, img_path, transform=None, subset_fraction=0.1):
+    def __init__(self, csv_file, img_path, transform=None, subset_fraction=0.3):
         # Handle the case where csv_file is None
         if csv_file is None:
             self.labels = None

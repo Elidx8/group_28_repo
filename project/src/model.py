@@ -42,51 +42,45 @@ import torch.nn.functional as F
 class SimpleCNN(nn.Module):
     def __init__(self, num_classes=13):
         super().__init__()
-        # Convolutional layers with max pooling to reduce spatial dimensions
-        self.conv1 = nn.Conv2d(3, 32, kernel_size=7, stride=2, padding=3)  # Reduce spatial size
+        # Adjusted convolutional layers with max pooling to increase receptive field
+        self.conv1 = nn.Conv2d(3, 32, kernel_size=17, stride=2, padding=8)  # Larger kernel size for faster RF growth
         self.max_pool1 = nn.MaxPool2d(kernel_size=2, stride=2)  # Halve spatial dimensions
 
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=5, stride=2, padding=2)  # Further reduce spatial size
+        self.conv2 = nn.Conv2d(32, 64, kernel_size=15, stride=2, padding=7)  # Further increase RF
         self.max_pool2 = nn.MaxPool2d(kernel_size=2, stride=2)  # Halve spatial dimensions again
 
-        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, stride=2, padding=1)  # Final convolutional layer
-        self.avg_pool3 = nn.AvgPool2d(kernel_size=8)  # Average pooling to reduce spatial dimensions
+        self.conv3 = nn.Conv2d(64, 128, kernel_size=13, stride=2, padding=6)  # Final convolutional layer
+        self.max_pool3 = nn.MaxPool2d(kernel_size=2, stride=2)  # Halve spatial dimensions again
+
+        # Average pooling to reduce spatial dimensions
+        self.avg_pool = nn.AdaptiveAvgPool2d((1, 1))  # Adaptive pooling to ensure output is a 1D feature vector
 
         # Fully connected classifier
-        self.classifier = nn.Linear(44160, num_classes)  # Adjust input size to match flattened dimensions
+        self.classifier = nn.Linear(128, num_classes)
 
     def forward(self, x):
         # First convolutional block
         x = self.conv1(x)
-        # print("After conv1:", x.shape, flush=True)
         x = F.relu(x)
-        # print("After ReLU (conv1):", x.shape, flush=True)
         x = self.max_pool1(x)
-        # print("After max_pool1:", x.shape, flush=True)
 
         # Second convolutional block
         x = self.conv2(x)
-        # print("After conv2:", x.shape, flush=True)
         x = F.relu(x)
-        # print("After ReLU (conv2):", x.shape, flush=True)
         x = self.max_pool2(x)
-        # print("After max_pool2:", x.shape, flush=True)
 
         # Third convolutional block
         x = self.conv3(x)
-        # print("After conv3:", x.shape, flush=True)
         x = F.relu(x)
-        # print("After ReLU (conv3):", x.shape, flush=True)
+        # print(x.shape)
+        x = self.max_pool3(x)
 
         # Average pooling to reduce spatial dimensions
-        x = self.avg_pool3(x)
-        # print("After avg_pool3:", x.shape, flush=True)
-
-        # Flatten the output for the classifier
-        x = torch.flatten(x, 1)  # Flatten all dimensions except batch size
-        # print("After flatten:", x.shape, flush=True)
+        # print(x.shape)
+        x = self.avg_pool(x)
+        # print(x.shape)
+        x = x.squeeze(-1).squeeze(-1)
 
         # Fully connected layer
         x = self.classifier(x)
-        # print("After classifier:", x.shape, flush=True)
         return x
