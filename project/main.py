@@ -251,7 +251,7 @@ def main():
     kaggle_predictions = []
 
     with torch.no_grad():
-        for images, img_ids in test_loader:  # No labels for Kaggle test set
+        for images, img_ids in tqdm(test_loader):  # No labels for Kaggle test set
             images = images.to(device)
             outputs = model(images)
             preds = torch.round(outputs).int().cpu().numpy()  # Round predictions to nearest integer
