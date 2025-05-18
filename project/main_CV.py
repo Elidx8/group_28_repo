@@ -64,40 +64,109 @@ class classifier:
                 })
         return references
 
+    # def _generate_proposals(self, image):
+    #     """Generate region proposals using contour detection"""
+    #     # Convert to grayscale        
+    #     gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        
+    #     # Apply Gaussian blur
+    #     blurred = cv2.GaussianBlur(gray, (5, 5), 0)#cv2.medianBlur(gray, 5)
+        
+    #     # Apply threshold
+    #     binary = cv2.adaptiveThreshold(blurred,255,cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV,7,2)
+    #     #_, binary = cv2.threshold(blurred, 200, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+
+    #     cv2.imshow("result",binary)
+    #     cv2.waitKey(0)
+    #     cv2.destroyAllWindows()   
+
+    #     kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(4,4))
+    #     binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel)
+    #     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(20,20))
+    #     binary = cv2.dilate(binary,kernel,iterations = 1)
+
+    #     cv2.imshow("result",binary)
+    #     cv2.waitKey(0)
+    #     cv2.destroyAllWindows()                 
+    #     # Find contours
+    #     contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    #     proposals = []
+    #     x, y, w, h = 0, 0, 0, 0
+    #     for contour in contours:
+    #         x, y, w, h = cv2.boundingRect(contour)
+    #         proposals.append((x, y, w, h))
+    #         cv2.rectangle(image,(x,y),(x+w,y+h),(255,0,0),3)
+    #     cv2.imshow("result",image)
+    #     cv2.waitKey(0)
+    #     cv2.destroyAllWindows()
+    #     return proposals
     def _generate_proposals(self, image):
-        """Generate region proposals using contour detection"""
-        # Convert to grayscale        
-        gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        """Generate region proposals using multiple techniques"""
+        # Convert to grayscale and blur
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        blurred = cv2.GaussianBlur(gray, (7, 7), 0)
         
-        # Apply Gaussian blur
-        blurred = cv2.medianBlur(gray, 5)
+        # 1. Adaptive thresholding with two different window sizes
+        thresh1 = cv2.adaptiveThreshold(blurred, 255, 
+            cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 21, 10)
+        thresh2 = cv2.adaptiveThreshold(blurred, 255,
+            cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 41, 15)
         
-        # Apply threshold
-        binary = cv2.adaptiveThreshold(blurred,255,cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV,9,2)
-        #_, binary = cv2.threshold(blurred, 50, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+        # 2. Edge detection
+        edges = cv2.Canny(blurred, 30, 100)
 
-        # cv2.imshow("result",binary)
+        # 3. Combine masks
+        combined_mask = cv2.bitwise_or(thresh1, thresh2)
+        combined_mask = cv2.bitwise_or(combined_mask, edges)
+        #combined_mask = cv2.bitwise_or(thresh1, edges)
+        
+        # 4. Morphological operations to clean up mask
+        kernel_small = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5,5))
+        kernel_large = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (15,15))
+        
+        # Close small gaps
+        mask = cv2.morphologyEx(combined_mask, cv2.MORPH_CLOSE, kernel_small)
+        # cv2.imshow("result",mask)
         # cv2.waitKey(0)
-        # cv2.destroyAllWindows()   
-        kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(4,4))
-        binary = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel)
-        kernel = cv2.getStructuringElement(cv2.MORPH_RECT,(20,20))
-        binary = cv2.dilate(binary,kernel,iterations = 1)
+        # cv2.destroyAllWindows()
+        # Remove small noise
+        mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel_small)
+        # cv2.imshow("result",mask)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
+        # Connect nearby components
+        mask = cv2.dilate(mask, kernel_large, iterations=1)
+        # cv2.imshow("result",mask)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
 
-        # cv2.imshow("result",binary)
-        # cv2.waitKey(0)
-        # cv2.destroyAllWindows()                 
-        # Find contours
-        contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        # 5. Find contours with area filtering
+        contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         proposals = []
-        x, y, w, h = 0, 0, 0, 0
+        
+        min_area = 200  # Adjust based on your image size
+        max_area = 15000
+        
         for contour in contours:
-            x, y, w, h = cv2.boundingRect(contour)
-            proposals.append((x, y, w, h))
-            # cv2.rectangle(image,(x,y),(x+w,y+h),(255,0,0),3)
-            # cv2.imshow("result",image)
-            # cv2.waitKey(0)
-            # cv2.destroyAllWindows()
+            area = cv2.contourArea(contour)
+            if min_area < area < max_area:
+                x, y, w, h = cv2.boundingRect(contour)
+                # Filter by aspect ratio
+                aspect_ratio = float(w)/h
+                if 0.9 < aspect_ratio < 2.0:
+                    proposals.append((x, y, w, h))
+        
+        # Debug visualization
+        debug_img = image.copy()
+        for (x, y, w, h) in proposals:
+            cv2.rectangle(debug_img, (x,y), (x+w,y+h), (0,255,0), 2)
+        
+        # cv2.imshow("Steps", np.hstack([thresh1, edges]))
+        # #cv2.imshow("Mask", mask)
+        # cv2.imshow("Result", debug_img)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
+        
         return proposals
 
     def _compare_with_references(self, region):
@@ -105,8 +174,13 @@ class classifier:
         orb = cv2.ORB_create(nfeatures=9000)
         bf = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True)
         
+        # Ensure region is in grayscale
+        if len(region.shape) == 3:
+            region = cv2.cvtColor(region, cv2.COLOR_BGR2GRAY)
+        elif len(region.shape) != 2:
+            return 0.0, None
+        
         # Get region features
-        region = cv2.cvtColor(region, cv2.COLOR_BGR2GRAY)
         _, region_des = orb.detectAndCompute(region, None)
         if region_des is None:
             return 0.0, None
@@ -114,8 +188,13 @@ class classifier:
         max_similarity = 0.0
         max_class = None
         for ref in self.references:
-            ref_im = cv2.cvtColor(ref["image"], cv2.COLOR_BGR2GRAY)
-            _, ref_des = orb.detectAndCompute(ref_im, None)
+            # Ensure reference image is in grayscale
+            ref_img = ref["image"]
+            if len(ref_img.shape) == 3:
+                ref_img = cv2.cvtColor(ref_img, cv2.COLOR_BGR2GRAY)
+            elif len(ref_img.shape) != 2:
+                return 0.0, None
+            _, ref_des = orb.detectAndCompute(ref_img, None)
             if ref_des is not None:
                 matches = bf.match(region_des, ref_des)
                 similarity = len(matches) / max(len(region_des), len(ref_des))
@@ -132,7 +211,7 @@ class classifier:
         # cv2.destroyAllWindows()
         return max_similarity, max_class
 
-    def detect(self, image_path, similarity_threshold=0.2):
+    def detect(self, image_path, similarity_threshold=0.1):
         image = cv2.imread(str(image_path))
         image_rgb = cv2.resize(image, (1080, 720))# cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         # Generate proposals
@@ -287,7 +366,7 @@ def main():
     # print_first_line(train_csv)
     
     # Print results
-    #metrics = ['f1', 'accuracy', 'precision', 'recall', 'mse'] 
+    metrics = ['f1', 'accuracy', 'precision', 'recall', 'mse'] 
     metrics = ['f1', 'accuracy', 'precision']
     for metric in metrics:
         # print(f"\n{metric.upper()} Scores:")
