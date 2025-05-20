@@ -7,7 +7,7 @@ import torch
 from PIL import Image
 
 from src.model import get_model
-from src.utils import load_model, get_transform, normalize
+from src.utils import load_model, get_transform, normalize, visualize_test_prediction
 
 
 def run_inference(args):
@@ -43,7 +43,7 @@ def run_inference(args):
             # Inference
             with torch.no_grad():
                 preds = model([img_tensor])[0]
-
+            #visualize_test_prediction(model, args.test_folder, tf)
             # Only keeping detections above confidence threshold
             scores = preds['scores'].cpu().numpy()
             lbls   = preds['labels'].cpu().numpy()

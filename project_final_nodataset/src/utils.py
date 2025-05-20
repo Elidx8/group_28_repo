@@ -10,6 +10,11 @@ import torch
 import src.transforms as T 
 
 
+import random
+from PIL import Image, ImageDraw, ImageFont
+import matplotlib.pyplot as plt
+import os
+
 def compute_counts_from_preds(preds, conf_thresh, num_classes):
     """
     preds is a dict with keys "boxes","scores","labels"
@@ -112,3 +117,65 @@ def visualize_predictions(model, dataset, class_names, device,
     plt.close(fig)
     model.train()
     
+
+def visualize_test_prediction(model, test_folder, transforms, conf_thresh=0.5, device='cpu'):
+    # Class names from the dataset
+    class_names = [
+        "Amandina","Arabia","Comtesse","Creme_brulee","Jelly_Black",
+        "Jelly_Milk","Jelly_White","Noblesse","Noir_authentique",
+        "Passion_au_lait","Stracciatella","Tentation_noir","Triangolo",
+    ]
+
+    
+    # Get random test image
+    test_files = [f for f in os.listdir(test_folder) 
+                  if f.lower().endswith(('.jpg','.jpeg','.png'))]
+    test_img_path = os.path.join(test_folder, random.choice(test_files))
+    
+    # Load and transform image
+    img = Image.open(test_img_path).convert("RGB")
+    img_tensor, _ = transforms(img, {})
+    
+    # Run inference
+    model.eval()
+    with torch.no_grad():
+        prediction = model([img_tensor.to(device)])[0]
+    
+    # Create figure
+    plt.figure(figsize=(12, 8))
+    
+    # Display the transformed image
+    img_display = img_tensor.permute(1, 2, 0).cpu().numpy()
+    plt.imshow(img_display)
+    plt.axis('off')
+    
+    # Filter predictions by confidence
+    keep = prediction['scores'] > conf_thresh
+    boxes = prediction['boxes'][keep]
+    labels = prediction['labels'][keep]
+    scores = prediction['scores'][keep]
+    
+    # Draw predictions
+    colors = ['red', 'blue', 'green', 'yellow', 'purple', 'cyan', 
+              'magenta', 'orange', 'lime', 'pink', 'teal', 'lavender', 'brown']
+    
+    for box, label, score in zip(boxes, labels, scores):
+        # Get coordinates
+        x1, y1, x2, y2 = box.cpu().numpy()
+        label_idx = int(label) - 1  # Convert 1-based to 0-based indexing
+        
+        # Draw box
+        color = colors[label_idx % len(colors)]
+        plt.gca().add_patch(plt.Rectangle((x1, y1), x2-x1, y2-y1,
+                                       fill=False, edgecolor=color, linewidth=2))
+        
+        # Draw label and score
+        text = f"{class_names[label_idx]}: {score:.2f}"
+        plt.text(x1, y1-5, text,
+                color=color,
+                backgroundcolor='black',
+                fontsize=8,
+                verticalalignment='bottom')
+    
+    plt.title(f'Predictions on {os.path.basename(test_img_path)}')
+    plt.show()
