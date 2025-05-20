@@ -12,8 +12,9 @@ import src.transforms as T
 
 import random
 from PIL import Image, ImageDraw, ImageFont
-import matplotlib.pyplot as plt
 import os
+
+
 
 def compute_counts_from_preds(preds, conf_thresh, num_classes):
     """
